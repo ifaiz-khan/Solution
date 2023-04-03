@@ -10,8 +10,6 @@ while [[  $i < $count ]];
 do
   prDate=`( cat git | ./jq-win64.exe -r .[$i].base.repo.created_at | cut -d "T" -f1 )`
   if [[ $prDate > $DATE7DAYSBACK ]]; then 
-    (( prNumber=i+1 ))
-    echo "PR Number:: " $prNumber >> file
     prURL=`( cat git | ./jq-win64.exe -r .[$i]._links.html.href )`
     echo "PR URL:: " $prURL >> file
     echo "PR Creation Date:: "$prDate >> file 
