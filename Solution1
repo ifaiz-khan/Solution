@@ -1,0 +1,36 @@
+curl --silent -L -H "Accept: application/vnd.github+json"  -H "Authorization: Bearer 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" -H "X-GitHub-Api-Version: 2022-11-28"  https://api.github.com/repos/ifaiz-khan/PRtesting/pulls?state=all --output git
+
+DATE7DAYSBACK=`date --date="8 day ago" +%Y-%m-%d`
+
+count=`( cat git | ./jq-win64.exe .[].state | wc -l )`
+i=0
+echo " " >> file
+
+while [[  $i < $count ]]; 
+do
+  prDate=`( cat git | ./jq-win64.exe -r .[$i].base.repo.created_at | cut -d "T" -f1 )`
+  if [[ $prDate > $DATE7DAYSBACK ]]; then 
+    (( prNumber=i+1 ))
+    echo "PR Number:: " $prNumber >> file
+    prURL=`( cat git | ./jq-win64.exe -r .[$i]._links.html.href )`
+    echo "PR URL:: " $prURL >> file
+    echo "PR Creation Date:: "$prDate >> file 
+    status=`( cat git | ./jq-win64.exe -r .[$i].state )`
+    echo "PR Status:: " $status >> file
+    prTitle=`( cat git | ./jq-win64.exe -r .[$i].title )`
+    echo "PR Title:: " $prTitle >> file
+    prHead=`( cat git | ./jq-win64.exe -r .[$i].head.ref )`
+    echo "PR Source Branch:: " $prHead >> file
+    prTarget=`( cat git | ./jq-win64.exe -r .[$i].base.ref )`
+    echo "PR Target Branch:: " $prTarget >> file
+    echo " " >> file
+  fi 
+  (( i=i+1 ))
+done
+
+echo "Mail Format"
+echo "From:: faiz.khan@gmail.com"
+echo "To:: reviewer@sp.com"
+echo "Subject:: Pull Requests Created in last 7 days"
+cat file
+rm file
