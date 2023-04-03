@@ -1,0 +1,6 @@
+docker login
+docker build -t dockerassignment .
+# Below command prints output 
+docker run -it dockerassignment -- /bin/bash
+# Below command will run conatiner command in background
+docker run -dp 3000:3000 dockerassignment -- /bin/bash
