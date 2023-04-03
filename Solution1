@@ -1,4 +1,4 @@
-curl --silent -L -H "Accept: application/vnd.github+json"  -H "Authorization: Bearer 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" -H "X-GitHub-Api-Version: 2022-11-28"  https://api.github.com/repos/ifaiz-khan/PRtesting/pulls?state=all --output git
+curl --silent -L -H "Accept: application/vnd.github+json"  -H "Authorization: Bearer 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" -H "X-GitHub-Api-Version: 2022-11-28"  https://api.github.com/repos/ifaiz-khan/PRtesting/pulls?state=all --output git
 
 DATE7DAYSBACK=`date --date="8 day ago" +%Y-%m-%d`
 
